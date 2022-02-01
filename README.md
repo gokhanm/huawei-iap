@@ -11,8 +11,6 @@ https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/api-
 go get github.com/gokhanm/huawei-iap
 ```
 
-# Quick Start
-
 ### Verify Subscription
 ```
 import (

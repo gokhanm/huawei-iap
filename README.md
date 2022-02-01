@@ -1,6 +1,5 @@
 # huawei-iap
-
-> **_NOTE:_**  Still in development.
+![](https://img.shields.io/badge/golang-1.16+-blue.svg?style=flat)
 
 huawei-iap verifies the purchase receipt via Huawei Store
 
@@ -10,4 +9,25 @@ https://developer.huawei.com/consumer/en/doc/development/HMSCore-References/api-
 # Installation
 ```
 go get github.com/gokhanm/huawei-iap
+```
+
+# Quick Start
+
+### Verify Subscription
+```
+import (
+    hms "github.com/gokhanm/huawei-iap"
+)
+
+func main() {
+    client := hms.New()
+	req := hms.IAPRequest{
+		PurchaseToken:  token,
+		SubscriptionID: subscriptionID,
+		ClientID:       clientID,
+		ClientSecret:   clientSecret,
+	}
+    
+	purchaseData, err := client.VerifySubscription(context.TODO(), req)
+}
 ```

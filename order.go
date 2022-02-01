@@ -3,6 +3,7 @@ package huaweistore
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 )
 
 const (
@@ -19,7 +20,7 @@ const (
 )
 
 // VerifyToken purchase Token Verification for the Order Service
-func (c *Client) VerifyToken(ctx context.Context, reqBody IAPRequest) (*IAPResponse, error) {
+func (c *Client) VerifyToken(ctx context.Context, reqBody IAPRequest) (*InappPurchaseData, error) {
 	url := c.OrderSiteURL + "/applications/purchases/tokens/verify"
 
 	body, err := c.sendRequest(ctx, url, reqBody)
@@ -27,10 +28,22 @@ func (c *Client) VerifyToken(ctx context.Context, reqBody IAPRequest) (*IAPRespo
 		return nil, err
 	}
 
-	var result IAPResponse
-	if err := json.Unmarshal(body, &result); err != nil {
+	var orderResponse IAPOrderResponse
+	if err := json.Unmarshal(body, &orderResponse); err != nil {
 		return nil, err
 	}
 
-	return &result, nil
+	if orderResponse.ResponseCode != IAPResponseResultOK {
+		//TODO parse api result codes
+		// https://developer.huawei.com/consumer/en/doc/development/HMS-References/iap-api-specification-related-v4#API-ErrorCode
+
+		return nil, fmt.Errorf("response code: %s, response message: %s", orderResponse.ResponseCode, orderResponse.ResponseMessage)
+	}
+
+	var purchaseData InappPurchaseData
+	if err := json.Unmarshal([]byte(orderResponse.PurchaseTokenData), &purchaseData); err != nil {
+		return nil, err
+	}
+
+	return &purchaseData, nil
 }

@@ -23,7 +23,7 @@ const (
 )
 
 // VerifySubscription purchase Token Verification for the Subscription Service
-func (c *Client) VerifySubscription(ctx context.Context, reqBody IAPRequest) (*IAPResponse, error) {
+func (c *Client) VerifySubscription(ctx context.Context, reqBody IAPRequest) (*InappPurchaseData, error) {
 	url := c.SubscriptionSiteURL + "/sub/applications/v2/purchases/get"
 
 	body, err := c.sendRequest(ctx, url, reqBody)
@@ -31,12 +31,24 @@ func (c *Client) VerifySubscription(ctx context.Context, reqBody IAPRequest) (*I
 		return nil, err
 	}
 
-	var result IAPResponse
-	if err := json.Unmarshal(body, &result); err != nil {
+	var subsResponse IAPSubscriptionResponse
+	if err := json.Unmarshal(body, &subsResponse); err != nil {
 		return nil, err
 	}
 
-	return &result, nil
+	if subsResponse.ResponseCode != IAPResponseResultOK {
+		//TODO parse api result codes
+		// https://developer.huawei.com/consumer/en/doc/development/HMS-References/iap-api-specification-related-v4#API-ErrorCode
+
+		return nil, fmt.Errorf("response code: %s, response message: %s", subsResponse.ResponseCode, subsResponse.ResponseMessage)
+	}
+
+	var purchaseData InappPurchaseData
+	if err := json.Unmarshal([]byte(subsResponse.InappPurchaseData), &purchaseData); err != nil {
+		return nil, err
+	}
+
+	return &purchaseData, nil
 }
 
 // sendRequest sends receipts and gets validation result

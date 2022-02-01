@@ -12,7 +12,7 @@ go get github.com/gokhanm/huawei-iap
 ```
 
 ### Verify Subscription
-```
+```go
 import (
     hms "github.com/gokhanm/huawei-iap"
 )

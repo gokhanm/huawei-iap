@@ -55,7 +55,7 @@ type InappPurchaseData struct {
 	PackageName            string `json:"packageName,omitempty"`
 	ProductID              string `json:"productId,omitempty"`
 	ProductName            string `json:"productName,omitempty"`
-	PurchaseTime           int64  `json:"purchaseTime,omitempty"`
+	PurchaseTime           *int64 `json:"purchaseTime,omitempty"`
 	PurchaseState          int    `json:"purchaseState,omitempty"`
 	DeveloperPayload       string `json:"developerPayload,omitempty"`
 	DeveloperChallenge     string `json:"developerChallenge,omitempty"`
@@ -70,19 +70,19 @@ type InappPurchaseData struct {
 	AccountFlag            *int   `json:"accountFlag,omitempty"`
 	LastOrderID            string `json:"lastOrderId,omitempty"`
 	ProductGroup           string `json:"productGroup,omitempty"`
-	OriginalPurchaseTime   int    `json:"oriPurchaseTime,omitempty"`
+	OriginalPurchaseTime   *int64 `json:"oriPurchaseTime,omitempty"`
 	SubscriptionID         string `json:"subscriptionId,omitempty"`
 	OriginalSubscriptionID string `json:"oriSubscriptionId,omitempty"`
 	Quantity               int    `json:"quantity,omitempty"`
 	DaysLasted             int    `json:"daysLasted,omitempty"`
 	NumOfPeriods           *int   `json:"numOfPeriods,omitempty"`
 	NumOfDiscount          int    `json:"numOfDiscount,omitempty"`
-	ExpirationDate         int64  `json:"expirationDate,omitempty"`
+	ExpirationDate         *int64 `json:"expirationDate,omitempty"`
 	ExpirationIntent       int    `json:"expirationIntent,omitempty"`
 	RetryFlag              *int   `json:"retryFlag,omitempty"`
 	IntroductoryFlag       *int   `json:"introductoryFlag,omitempty"`
 	TrialFlag              *int   `json:"trialFlag,omitempty"`
-	CancelTime             int    `json:"cancelTime,omitempty"`
+	CancelTime             *int64 `json:"cancelTime,omitempty"`
 	CancelReason           *int   `json:"cancelReason,omitempty"`
 	AppInfo                string `json:"appInfo,omitempty"`
 	NotifyClosed           *int   `json:"notifyClosed,omitempty"`
@@ -92,9 +92,9 @@ type InappPurchaseData struct {
 	SubscriptionIsvalid    bool   `json:"subIsvalid,omitempty"`
 	DeferFlag              int    `json:"deferFlag,omitempty"`
 	CancelWay              *int   `json:"cancelWay,omitempty"`
-	CancellationTime       int    `json:"cancellationTime,omitempty"`
+	CancellationTime       *int64 `json:"cancellationTime,omitempty"`
 	CancelledSubKeepDays   int    `json:"cancelledSubKeepDays,omitempty"`
 	Confirmed              *int   `json:"confirmed,omitempty"`
-	ResumeTime             int    `json:"resumeTime,omitempty"`
+	ResumeTime             *int64 `json:"resumeTime,omitempty"`
 	SdkChannel             string `json:"sdkChannel,omitempty"`
 }

@@ -1,8 +1,6 @@
 # huawei-iap
 ![](https://img.shields.io/badge/golang-1.16+-blue.svg?style=flat)
 
-> **_NOTE:_**  Still in development.
-
 huawei-iap verifies the purchase receipt via Huawei Store
 
 Current API Documents:
@@ -29,5 +27,19 @@ func main() {
 	}
 
 	purchaseData, err := client.VerifySubscription(context.TODO(), req)
+}
+```
+
+### Verify Signature
+```go
+import (
+	"fmt"
+    hms "github.com/gokhanm/huawei-iap"
+)
+
+func main() {
+   if err := hms.VerifySignature("receipt", "signature", "publicKey"); err != nil {
+	   fmt.Printf("huawei verify signature error. error: %v", err)
+   }
 }
 ```
